@@ -84,24 +84,31 @@ int main() {
         computeFirst(symbol);
     }
 
-    // Display FIRST sets
-    printf("\nFIRST Sets:\n");
+   
+// Display FIRST sets without duplicates
+printf("\nFIRST Sets:\n");
 
-    for (int i = 0; i < numProductions; i++) {
+int printed[26] = {0};
 
-        char symbol = production[i][0];
+for (int i = 0; i < numProductions; i++) {
 
-        if (firstSet[symbol - 'A'][0] != '\0') {
+    char symbol = production[i][0];
+    int idx = symbol - 'A';
 
-            printf("FIRST(%c) = { ", symbol);
+    // Print only if this non-terminal hasn't been printed
+    if (!printed[idx]) {
 
-            for (int j = 0; firstSet[symbol - 'A'][j] != '\0'; j++) {
-                printf("%c ", firstSet[symbol - 'A'][j]);
-            }
+        printed[idx] = 1;
 
-            printf("}\n");
+        printf("FIRST(%c) = { ", symbol);
+
+        for (int j = 0; firstSet[idx][j] != '\0'; j++) {
+            printf("%c ", firstSet[idx][j]);
         }
+
+        printf("}\n");
     }
+}
 
     return 0;
 }
